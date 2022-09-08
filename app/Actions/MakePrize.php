@@ -7,17 +7,29 @@ use App\Models\Ticket;
 
 class MakePrize
 {
-    public static function execute(Prize $prize): void
+   public static function execute(Prize $prize): void
     {
-        Ticket::whereDate(
+        $tickets = self::getTicketsToDrawn($prize);
+
+        $tickets->each(function ($ticket) use ($prize) {
+            if (self::isDrawnTicket($ticket, $prize)) {
+                $ticket->update(['winner' => true]);
+            }
+            $prize->tickets()->save($ticket);
+        });
+    }
+
+    private static function getTicketsToDrawn(Prize $prize): Collection
+    {
+        return Ticket::whereDate(
             'created_at',
             '<=',
             $prize->created_at->subSecond(30)
-        )->each(function ($value) use ($prize) {
-            if (collect($value->numbers)->diffAssoc($prize->numbers)->isEmpty()) {
-                $value->update(['winner' => true]);
-            }
-            $prize->tickets()->save($value);
-        });
+        )->get();
+    }
+
+    private static function isDrawnTicket(Ticket $ticket, Prize $prize): bool
+    {
+        return collect($ticket->numbers)->diffAssoc($prize->numbers)->isEmpty();
     }
 }
