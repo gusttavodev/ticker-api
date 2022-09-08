@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Models\Prize;
 use App\Models\Ticket;
+use Illuminate\Support\Collection;
 
 class MakePrize
 {
