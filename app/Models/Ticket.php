@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Prize;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ticket extends Model
 {
@@ -12,6 +14,18 @@ class Ticket extends Model
     protected $fillable = [
         'name',
         'numbers',
-        'code'
+        'code',
+        'winner',
+        'created_at',
     ];
+
+    protected $casts = [
+        'numbers' => 'array',
+        'winner' => 'boolean'
+    ];
+
+    public function prize(): BelongsTo
+    {
+        return $this->belongsTo(Prize::class);
+    }
 }

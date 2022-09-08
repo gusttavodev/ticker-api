@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->uuid('code');
             $table->json('numbers');
 
-            $table->unsignedBigInteger('prize_id');
-            $table->foreign('prize_id')->references('id')->on('prizes')->nullable();
+            $table->unsignedBigInteger('prize_id')->default(null)->nullable();
+            $table->foreign('prize_id')->references('id')->on('prizes');
 
             $table->timestamps();
         });
