@@ -15,7 +15,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'numbers' => 'array|size:6'
+            'numbers' => 'required|array|size:6'
         ];
     }
 }
