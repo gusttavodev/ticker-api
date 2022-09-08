@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Prize;
+use App\Models\Ticket;
+use App\Jobs\GeneratePrize;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TicketController;
