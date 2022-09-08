@@ -26,7 +26,6 @@ class TicketController extends Controller
 
     public function show(string $code)
     {
-        return Ticket::all();
         return new TicketResource(Ticket::whereCode($code)->firstOrFail());
     }
 }
