@@ -16,8 +16,8 @@ class MakePrize
         )->each(function ($value) use ($prize) {
             if (collect($value->numbers)->diffAssoc($prize->numbers)->isEmpty()) {
                 $value->update(['winner' => true]);
-                $prize->tickets()->save($value);
             }
+            $prize->tickets()->save($value);
         });
     }
 }
